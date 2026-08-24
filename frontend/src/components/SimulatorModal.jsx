@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, PlusCircle, Zap, DollarSign, CreditCard, AlertCircle } from 'lucide-react';
+import { apiFetch } from '../api';
 
 export default function SimulatorModal({ onClose, onSimulated }) {
   const [amount, setAmount] = useState('129.99');
@@ -14,7 +15,7 @@ export default function SimulatorModal({ onClose, onSimulated }) {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch('/api/simulate', {
+      const res = await apiFetch('/api/simulate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -29,7 +30,7 @@ export default function SimulatorModal({ onClose, onSimulated }) {
       if (res.ok) {
         const data = await res.json();
         // Immediately trigger AI Agent workflow on newly simulated transaction!
-        await fetch(`/api/recover/${data.transaction_id}`, { method: 'POST' });
+        await apiFetch(`/api/recover/${data.transaction_id}`, { method: 'POST' });
         onSimulated(data.transaction_id);
         onClose();
       }

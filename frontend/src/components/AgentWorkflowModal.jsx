@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Zap, ShieldCheck, Cpu, Send, CheckCircle2, AlertTriangle, ShieldX, Play } from 'lucide-react';
+import { apiFetch } from '../api';
 
 export default function AgentWorkflowModal({ transactionId, onClose, onRefreshData }) {
   const [detailData, setDetailData] = useState(null);
@@ -10,7 +11,7 @@ export default function AgentWorkflowModal({ transactionId, onClose, onRefreshDa
   const fetchDetail = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch(`/api/transactions/${transactionId}`);
+      const res = await apiFetch(`/api/transactions/${transactionId}`);
       if (res.ok) {
         const data = await res.json();
         setDetailData(data);
@@ -38,7 +39,7 @@ export default function AgentWorkflowModal({ transactionId, onClose, onRefreshDa
     setTimeout(async () => {
       setActiveStep(4);
       try {
-        await fetch(`/api/recover/${transactionId}`, { method: 'POST' });
+        await apiFetch(`/api/recover/${transactionId}`, { method: 'POST' });
         await fetchDetail();
         if (onRefreshData) onRefreshData();
       } catch (e) {

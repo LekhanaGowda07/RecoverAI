@@ -5,6 +5,7 @@ import {
   RefreshCw, Search, Settings as SettingsIcon, Shield, ShieldAlert, ShieldCheck,
   Sparkles, Target, UserRound, X, Zap
 } from 'lucide-react';
+import { apiFetch as fetch } from './api';
 
 const navItems = [
   ['dashboard', 'Dashboard', LayoutDashboard],
