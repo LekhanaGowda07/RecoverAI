@@ -11,4 +11,10 @@
       "dest": "backend/main.py"
     }
   ]
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://recoverai-1.onrender.com"
+    }
+  ]
 }
