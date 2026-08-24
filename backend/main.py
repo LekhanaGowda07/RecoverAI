@@ -10,6 +10,7 @@ from backend.agent_workflow import AgentWorkflowEngine
 
 # Create DB tables
 Base.metadata.create_all(bind=engine)
+app = FastAPI()
 
 def seed_database_if_empty():
     db = SessionLocal()
